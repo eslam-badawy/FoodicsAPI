@@ -1,0 +1,11 @@
+<suite name="MyTestSuite">
+    <test name="MyTest">
+        <classes>
+            <!-- Main source folder class -->
+            <class name="TestSetup" />
+            
+            <!-- Test source folder class -->
+            <class name="APITestCases" />
+        </classes>
+    </test>
+</suite>
