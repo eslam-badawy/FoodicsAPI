@@ -1,11 +1,8 @@
-<suite name="MyTestSuite">
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="MySuite">
     <test name="MyTest">
         <classes>
-            <!-- Main source folder class -->
-            <class name="TestSetup" />
-            
-            <!-- Test source folder class -->
-            <class name="APITestCases" />
+            <class name="APITestCases"/>
         </classes>
     </test>
 </suite>

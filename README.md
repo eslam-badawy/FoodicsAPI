@@ -1,6 +1,6 @@
 # Rest-Assured API Testing Framework
 
-This is a Java-based REST API testing framework using Rest-Assured. It includes sample test cases for the Foodics API.
+This is a Java-based REST API testing framework using Rest-Assured and BDD. It includes sample test cases for the Foodics API.
 
 ## Prerequisites
 
@@ -13,12 +13,15 @@ Before running the tests, ensure you have the following installed:
 
 The project is organized as follows:
 
-- `src/main/java`: Contains the main source code.
-  - `TestSetup.java`: Configuration class to set the base URL.
 - `src/test/java`: Contains test classes.
-  - `APITestCases.java`: Test cases for the Foodics API.
-  - `TestData.java`: Test data class containing endpoint URLs and credentials.
+  - `resources`: Test data.
+     - `test-config.properties`: all the needed test data.
+  - `test`: Test cases for the Foodics API.
+     - `APITestCases.java`: Contains all test cases.
+     - `TestDataLoading.java`: All methods to get the test data from test-config file.
 - `pom.xml`: Maven project configuration file.
+- `testng.xml`: Contains the class needed to be run.
+
 
 ## Running the Tests
 
@@ -26,9 +29,9 @@ The project is organized as follows:
 2. Navigate to the project's root directory.
 3. Open a terminal/command prompt.
 4. Run the following command to execute the tests:
-
-
-This command will trigger the execution of TestNG tests.
+ - mvn clean
+ - mvn compile
+ - mvn test -Dtest=APITestCases 
 
 ## Test Cases
 
@@ -44,10 +47,10 @@ This command will trigger the execution of TestNG tests.
 - Test Method: `testWhoAmIEndpoint()`
 - Expected Result: Expects a `200 OK` response and validates the user's email.
 
-### 3. Negative Login Test (Bad Password)
+### 3. Negative Login Test (Bad email)
 
 - Description: Tests a failed login using an incorrect password.
 - Test Method: `testBadLoginScenario()`
-- Expected Result: Expects a `401 Unauthorized` response.
+- Expected Result: Expects a `500 internal server error` response.
 
 

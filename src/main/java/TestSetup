@@ -1,9 +1,0 @@
-package com.example.testsetup; // Add this package declaration
-
-import io.restassured.RestAssured;
-
-public class TestSetup {
-    public static void configure() {
-        RestAssured.baseURI = TestData.BASE_URL;
-    }
-}
