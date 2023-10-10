@@ -1,1 +1,0 @@
-{"uuid":"77f206c5-8ce6-485f-bbea-c2eb50f06963","name":"test.APITestCases","children":["0bfdcd48-b941-4626-a4e2-fabf39a68f17"],"befores":[{"name":"setup","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1696943856747,"stop":1696943857036}],"afters":[],"start":1696943856718,"stop":1696943858714}
