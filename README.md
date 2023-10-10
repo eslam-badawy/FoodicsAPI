@@ -46,6 +46,7 @@ The project is organized as follows:
 - Description: Tests the "Who Am I" endpoint after a successful login.
 - Test Method: `testWhoAmIEndpoint()`
 - Expected Result: Expects a `200 OK` response and validates the user's email.
+- Expected Result: Also assert on the email in the response equal to the login email
 
 ### 3. Negative Login Test (Bad email)
 

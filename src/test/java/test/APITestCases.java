@@ -6,8 +6,11 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class APITestCases {
+
+    private String authToken; // Variable to store the authentication token
 
     @BeforeClass
     public void setup() {
@@ -16,7 +19,6 @@ public class APITestCases {
 
     @Test
     public void testLoginEndpoint() {
-        // Prepare the request body
         String requestBody = "{\n" +
                 "\"email\": \"" + TestDataLoading.getEmail() + "\",\n" +
                 "\"password\": \"" + TestDataLoading.getPassword() + "\",\n" +
@@ -26,34 +28,47 @@ public class APITestCases {
         Response response = given()
                 .header("Content-Type", "application/json")
                 .body(requestBody)
-                .when()
+            .when()
                 .post("/login")
-                .then()
+            .then()
                 .extract()
                 .response();
 
         // Assert the response status code is 200
         int expectedStatusCode = 200;
         assertEquals(response.getStatusCode(), expectedStatusCode, "Response status code doesn't match the expected value.");
+
+        // Extract and store the token
+        authToken = response.jsonPath().getString("token");
     }
 
-    @Test
+    @Test(dependsOnMethods = "testLoginEndpoint")
     public void testWhoAmIEndpoint() {
-        // Use the token for authentication
-        String token = TestDataLoading.getToken();
+        // Check if authToken is not null (assuming it's set in the login test)
+        assertTrue(authToken != null, "Authentication token is null. Please ensure you've logged in.");
 
+        // Define the request headers with the authToken
         Response response = given()
-                .header("Authorization", "Bearer " + token)
-                .when()
+                .header("Content-Type", "application/json")
+                .header("Authorization", "Bearer " + authToken) // Add the token as a Bearer token
+            .when()
                 .get("/whoami")
-                .then()
+            .then()
                 .extract()
                 .response();
 
         // Assert the response status code is 200
         int expectedStatusCode = 200;
         assertEquals(response.getStatusCode(), expectedStatusCode, "Response status code doesn't match the expected value.");
+
+        // Assert the email in the response matches the login email
+        String loginEmail = TestDataLoading.getEmail();
+        String responseEmail = response.jsonPath().getString("user.email");
+        assertEquals(responseEmail, loginEmail, "Email in response doesn't match the login email.");
+
+        // You can add more assertions based on the response body, headers, etc.
     }
+
 
     @Test
     public void testBadLoginScenario() {
